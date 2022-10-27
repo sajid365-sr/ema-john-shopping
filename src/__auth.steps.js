@@ -37,4 +37,9 @@ single page application: y
 // for every deploy
 4. npm run build
 5. firebase deploy
+
+// deploy every time after edit the file
+** npm run build
+** firebase deploy
+
 */
