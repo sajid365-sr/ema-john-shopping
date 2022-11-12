@@ -5,10 +5,28 @@ import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css';
 
+
+
+/* 
+count : done (total products)
+perPage (size) : 10
+No of pages = count/per page
+currentPage (page)
+*/
+
+
+
+
+
+
 const Shop = () => {
     
     const [cart, setCart] = useState([]);
-    const products = useLoaderData();
+    const {products, count} = useLoaderData();
+    const [page, setPage] = useState(0); // In which pages
+    const [size, setSize] = useState(10); // per page
+
+    const pages = Math.ceil(count / size);
 
     useEffect( () =>{
         const storedCart = getStoredCart();
@@ -63,6 +81,18 @@ const Shop = () => {
                         <button className='clearCartBtn'>Review Order</button>
                     </Link>
                 </Cart>
+            </div>
+            <div className="pagination">
+                <p>Currently selected page: {page}</p>
+                {
+                    [...Array(pages).keys()].map(number => <button
+                    key={number}
+                    className={` beforeSelect ${page === number && 'selected'}`}
+                    onClick={() => setPage(number)}
+                    >
+                        {number}
+                    </button>)
+                }
             </div>
         </div>
     );
