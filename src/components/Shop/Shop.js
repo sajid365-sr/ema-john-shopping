@@ -22,7 +22,7 @@ currentPage (page)
 const Shop = () => {
     
     const [cart, setCart] = useState([]);
-    // const {products, count} = useLoaderData();
+    
     const [products, setProducts] = useState([]);
     const [count, setCount] = useState(0);
     const [page, setPage] = useState(0); // In which pages
@@ -44,15 +44,33 @@ const Shop = () => {
     useEffect( () =>{
         const storedCart = getStoredCart();
         const savedCart = [];
-        for(const id in storedCart){
-            const addedProduct = products.find(product => product._id === id);
-            if(addedProduct){
-                const quantity = storedCart[id];
-                addedProduct.quantity = quantity;
-                savedCart.push(addedProduct);
+        const ids = Object.keys(storedCart);
+        console.log(ids);
+
+        fetch(`http://localhost:5000/productsByIds`, {
+            method:'POST',
+            headers:{
+                'content-type':'application/json',
+            },
+            body: JSON.stringify(ids)
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+
+            for(const id in storedCart){
+                const addedProduct = data.find(product => product._id === id);
+                if(addedProduct){
+                    const quantity = storedCart[id];
+                    addedProduct.quantity = quantity;
+                    savedCart.push(addedProduct);
+                }
             }
-        }
-        setCart(savedCart);
+            setCart(savedCart);
+        })
+
+        
+
     }, [products])
 
     const clearCart = () =>{
@@ -96,14 +114,14 @@ const Shop = () => {
                 </Cart>
             </div>
             <div className="pagination">
-                <p>Currently selected page: {page}, and per page: {size}</p>
+                <p>Currently selected page: {page + 1}, and per page: {size}</p>
                 {
                     [...Array(pages).keys()].map(number => <button
                     key={number}
                     className={` beforeSelect ${page === number && 'selected'}`}
                     onClick={() => setPage(number)}
                     >
-                        {number}
+                        {number + 1}
                     </button>)
                 }
                 <select onChange={event => setSize(event.target.value)}>
