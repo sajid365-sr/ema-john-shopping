@@ -15,7 +15,7 @@ const Orders = () => {
 
     const deleteCart = (id) =>{
 
-         const exists = cart.filter(remainCart => remainCart.id !== id)
+         const exists = cart.filter(remainCart => remainCart._id !== id)
          setCart(exists);
          removeFromDb(id);
     }
@@ -30,7 +30,7 @@ const Orders = () => {
                <div>
                {
                 cart.map(product => <ReviewProduct
-                     key={product.id}
+                     key={product._id}
                      product={product}
                      deleteCart={deleteCart}
                      ></ReviewProduct>)

@@ -4,7 +4,7 @@ import React from "react";
 import "./reviewProduct.css";
 
 const ReviewProduct = ({ product,deleteCart }) => {
-  const { name, price, quantity, img,id } = product;
+  const { name, price, quantity, img,_id } = product;
  
 
   return (
@@ -24,7 +24,7 @@ const ReviewProduct = ({ product,deleteCart }) => {
         </div>
 
         <div className="deleteContainer">
-          <button onClick={() =>{deleteCart(id)}}>
+          <button onClick={() =>{deleteCart(_id)}}>
             <FontAwesomeIcon
               className="deleteIcon"
               icon={faTrashCan}
