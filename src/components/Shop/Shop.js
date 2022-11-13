@@ -24,9 +24,9 @@ const Shop = () => {
     const [cart, setCart] = useState([]);
     
     const [products, setProducts] = useState([]);
-    const [count, setCount] = useState(0);
-    const [page, setPage] = useState(0); // In which pages
-    const [size, setSize] = useState(10); // per page
+    const [count, setCount] = useState(0); // total products
+    const [page, setPage] = useState(0); // In which pages customer clicked
+    const [size, setSize] = useState(10); // products per page
 
 
     useEffect( () =>{
