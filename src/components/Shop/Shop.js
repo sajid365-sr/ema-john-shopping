@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLoaderData } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { addToDb, deleteShoppingCart, getStoredCart } from '../../utilities/fakedb';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
@@ -16,9 +16,6 @@ currentPage (page)
 
 
 
-
-
-
 const Shop = () => {
     
     const [cart, setCart] = useState([]);
@@ -30,7 +27,7 @@ const Shop = () => {
 
 
     useEffect( () =>{
-        const url = `http://localhost:5000/products?page=${page}&size=${size}`
+        const url = `https://ema-john-server-mocha.vercel.app/products?page=${page}&size=${size}`
         fetch(url)
         .then(res => res.json())
         .then(data =>{
@@ -47,7 +44,7 @@ const Shop = () => {
         const ids = Object.keys(storedCart);
         console.log(ids);
 
-        fetch(`http://localhost:5000/productsByIds`, {
+        fetch(`https://ema-john-server-mocha.vercel.app/productsByIds`, {
             method:'POST',
             headers:{
                 'content-type':'application/json',
